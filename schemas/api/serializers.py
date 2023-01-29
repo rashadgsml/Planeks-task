@@ -26,8 +26,10 @@ class SchemaSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         instance = super().create(validated_data)
         instance.columns.set(self.context['columns'])
+        instance.user = self.context['request'].user
+        instance.save()
         return instance
-    
+
     def update(self, instance, validated_data):
         instance = super().update(instance, validated_data)
         instance.columns.set(self.context['columns'])

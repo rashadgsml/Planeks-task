@@ -9,11 +9,15 @@ from rest_framework.response import Response
 from .serializers import SchemaSerializer, SchemaColumnSerializer, DatasetSerializer
 from ..models import Schema, SchemaColumn, Dataset
 from .utils import fill_list
+from .permissions import IsAuthor
 
 
 class SchemaList(ListAPIView):
     serializer_class = SchemaSerializer
     queryset = Schema.objects.all()
+
+    def get_queryset(self, *args, **kwargs):
+        return Schema.objects.filter(user=self.request.user)
 
 
 class SchemaDetailAPI(RetrieveUpdateDestroyAPIView):

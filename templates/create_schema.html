@@ -10,7 +10,7 @@
 {% block content %}
 <div class="container-lg">
     <h2><b id="page-title">New schema</b></h2>
-    <form action="POST" id="schema-form">
+    <form method="POST" id="schema-form">
         {% csrf_token %}
         <div class="form-group">
             <div class="col-xs-6">

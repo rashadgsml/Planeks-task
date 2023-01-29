@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 
 COLUMN_TYPES = (
@@ -15,6 +16,10 @@ COLUMN_TYPES = (
 
 
 class Schema(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE, blank=True, null=True
+    )
     title = models.CharField(max_length=100)
     column_sep = models.CharField(max_length=1)
     string_char = models.CharField(max_length=1)
