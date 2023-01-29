@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>Schemas</title>
+{% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/schema_list.css' %}">
+{% endblock css %}
+{% block content %}
+<div class="container-lg">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h2><b>Data schemas</b></h2>
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="{% url 'schemas:create' %}" class="btn btn-success add-new">New schema</a>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Modified</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="schema-tbody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script>
+    const schema_list_url = "{% url 'schemas-api:list' %}"
+    const schema_detail_url = "{% url 'schemas:detail' 0 %}"
+</script>
+<script src="{% static 'js/DataSchemas.js' %}"></script>
+{% endblock js %}

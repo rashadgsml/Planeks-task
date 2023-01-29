@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>Schemas</title>
+{% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/schema_list.css' %}">
+{% endblock css %}
+{% block content %}
+<div class="container-lg">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h2><b>Sample schema</b></h2>
+                        <h3><a href="{% url 'schemas:edit' obj_id %}">Edit scheme</a></h3>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Column name</th>
+                        <th>Column type</th>
+                    </tr>
+                </thead>
+                <tbody id="schema-tbody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2><b>Data sets</b></h2>
+                    </div>
+                    <div class="col-sm-6">
+                        <h5>Rows:</h5>
+                        <input class="form-control col-md-6" type="text" id="rows">
+                        <a onclick="generateCSV()" class="btn btn-success add-new">Generate data</a>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Created</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="dataset-tbody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script>
+    const obj_id = "{{obj_id}}"
+    const schema_detail_url = "{% url 'schemas-api:detail' 0 %}".replace("0", obj_id)
+    const dataset_list_url = "{% url 'schemas-api:dataset-list' 0 %}".replace("0", obj_id)
+    const generate_csv_url = "{% url 'schemas-api:generate-csv' 0 %}".replace("0", obj_id)
+</script>
+<script src="{% static 'js/Detail.js' %}"></script>
+{% endblock js %}

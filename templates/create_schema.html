@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>New schema</title>
+{% endblock title %}
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+<div class="container-lg">
+    <h2><b id="page-title">New schema</b></h2>
+    <form action="POST" id="schema-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="col-xs-6">
+                <label>Name</label>
+                <input type="text" class="form-control" id="title">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-6">
+                <button class="btn btn-primary" id="submit-btn">Submit</button>
+            </div>
+        </div>
+        <br><br><br>
+        <div class="form-group">
+            <div class="col-xs-6">
+                <label>Column separator</label>
+                <select class="form-control form-control-lg" id="column_sep">
+                    <option value=",">Comma (,)</option>
+                </select>
+            </div>
+        </div>
+        <br><br><br>
+        <div class="form-group">
+            <div class="col-xs-6">
+                <label>String character</label>
+                <select class="form-control form-control-lg" id="string_char">
+                    <option value="“">Double-quote (“)</option>
+                </select>
+            </div>
+        </div>
+        <br><br><br>
+        <h2><b>Schema columns</b></h2>
+        <br>
+        <div id="columns">
+            <div class="column">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Column name</label>
+                        <input type="text" class="form-control" name="c_name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label>Type</label>
+                        <select class="form-control form-control-lg type" name="type">
+                            <option value="Full name">Full name</option>
+                            <option value="Job">Job</option>
+                            <option value="Email">Email</option>
+                            <option value="Domain name">Domain name</option>
+                            <option value="Phone number">Phone number</option>
+                            <option value="Text">Text</option>
+                            <option value="Integer">Integer</option>
+                            <option value="Address">Address</option>
+                            <option value="Date">Date</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-1">
+                        <div class="integer" style="display: none;"><label>From</label>
+                            <input type="text" class="form-control" name="from">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-1">
+                        <div class="integer" style="display: none;"><label>To</label>
+                            <input type="text" class="form-control" name="to">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label>Order</label>
+                        <input type="text" class="form-control" name="order">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <br>
+                        <td><a style="cursor: pointer;" class="text-danger delete">Delete</a></td>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br><br>
+        <div class="col-7">
+            <button type="button" class="btn btn-info add-column">Add column</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script>
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+    const schema_create_url = "{% url 'schemas-api:create' %}"
+    const schema_column_create_url = "{% url 'schemas-api:create-column' %}"
+    const schema_list_view = "{% url 'schemas:list' %}"
+    const schema_detail_api_url = "{% url 'schemas-api:detail' 0 %}"
+    const obj_id = "{{obj_id}}"
+</script>
+<script src="{% static 'js/CreateSchema.js' %}"></script>
+{% endblock js %}
