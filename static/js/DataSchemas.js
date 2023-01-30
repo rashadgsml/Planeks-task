@@ -19,13 +19,13 @@ function reloadList() {
             data.forEach((data, counter) => {
                 trs += `
                 <tr>
-                    <td><b>${counter+1}<b></td>
+                    <td><b>${counter + 1}<b></td>
                     <td>${data.title}</td>
                     <td>${data.modified_at}</td>
                     <td>
                         <a href="${schema_detail_url.replace('0', data.id)}" class="edit" title="Edit" data-toggle="tooltip"><i
                                 class="material-icons">&#xE254;</i></a>
-                        <a class="delete" title="Delete" data-toggle="tooltip"><i
+                        <a onclick="deleteSchema(this, '${data.id}')" class="delete" title="Delete" data-toggle="tooltip"><i
                                 class="material-icons">&#xE872;</i></a>
                     </td>
                 </tr>`;
@@ -34,3 +34,15 @@ function reloadList() {
         },
     });
 }
+
+
+function deleteSchema(event, obj_id) {
+    $(event).parents("tr").remove()
+    $.ajax({
+        method: "DELETE",
+        headers: {'X-CSRFToken': csrftoken},
+        url: schema_detail_api_url.replace("0", obj_id),
+        dataType: "json",
+    });
+}
+

@@ -54,7 +54,7 @@ function reloadDataset() {
                 <tr>
                     <td><b>${counter + 1}<b></td>
                     <td>${data.created_at}</td>
-                    <td>Ready</td>
+                    <td><button class="status-btn" disabled>Ready</button></td>
                     <td><a href="${data.file}">Download</a></td>
                 </tr>`;
             });
@@ -65,13 +65,24 @@ function reloadDataset() {
 
 
 function generateCSV() {
-    const date = new Date();
+    if(!$("#rows").val()){
+        showErrorMessage(message="Enter number of rows before generating data")
+        setError($("#rows"))
+        return false
+    }
+    const currentdate = new Date();
+    var datetime = currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getFullYear() + " "  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds();
     dataset_tbody = document.getElementById("dataset-tbody");
     trs = `
         <tr>
             <td><b><b></td>
-            <td>${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}</td>
-            <td>Processing</td>
+            <td>${datetime}</td>
+            <td><button class="status-btn-pr" disabled>Processing</button></td>
             <td></td>
         </tr>`;
     dataset_tbody.insertAdjacentHTML("afterbegin", trs);

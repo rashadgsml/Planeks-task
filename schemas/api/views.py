@@ -32,6 +32,10 @@ class SchemaDetailAPI(RetrieveUpdateDestroyAPIView):
         except:
             pass
         return context
+    
+    def get_object(self):
+        obj = super().get_object()
+        return obj
 
     def put(self, request, *args, **kwargs):
         serializer = SchemaColumnSerializer(data=json.loads(request.data["columns"]), many=True)

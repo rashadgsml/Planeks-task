@@ -14,14 +14,14 @@
                 <div class="row">
                     <div class="col-sm-8">
                         <h2><b>Sample schema</b></h2>
-                        <h3><a href="{% url 'schemas:edit' obj_id %}">Edit scheme</a></h3>
+                        <h3><a href="{% url 'schemas:edit' obj_id %}">Edit schema</a></h3>
                     </div>
                 </div>
             </div>
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th style="width: 10%;">#</th>
                         <th>Column name</th>
                         <th>Column type</th>
                     </tr>
@@ -38,9 +38,11 @@
                     <div class="col-sm-6">
                         <h2><b>Data sets</b></h2>
                     </div>
-                    <div class="col-sm-6">
-                        <h5>Rows:</h5>
-                        <input class="form-control col-md-6" type="text" id="rows">
+                    <div class="col-sm-3">
+                        <h5 style="margin-left: 35px;">Rows:</h5>
+                        <input style="width: 84px;left:80px;bottom:35px;" class="form-control col-md-6" type="number" id="rows">
+                    </div>
+                    <div class="col-sm-3">
                         <a onclick="generateCSV()" class="btn btn-success add-new">Generate data</a>
                     </div>
                 </div>
@@ -48,7 +50,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th style="width:10%">#</th>
                         <th>Created</th>
                         <th>Status</th>
                         <th>Actions</th>

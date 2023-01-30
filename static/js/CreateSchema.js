@@ -41,10 +41,9 @@ function fillForm() {
 
 $(".add-column").click(function () {
     var column = `
-    <div class="br"><br><br><br></div>
     <div class="column">
                 <div class="form-group">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label>Column name</label>
                         <input type="text" class="form-control" name="c_name">
                     </div>
@@ -68,21 +67,21 @@ $(".add-column").click(function () {
                 <div class="form-group">
                     <div class="col-md-1">
                         <div class="integer" style="display: none;"><label>From</label>
-                            <input type="text" class="form-control" name="from">
+                            <input type="number" class="form-control" name="from">
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-1">
                         <div class="integer" style="display: none;"><label>To</label>
-                            <input type="text" class="form-control" name="to">
+                            <input type="number" class="form-control" name="to">
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-2">
                         <label>Order</label>
-                        <input type="text" class="form-control" name="order">
+                        <input type="number" class="form-control" name="order">
                     </div>
                 </div>
                 <div class="form-group">
@@ -100,7 +99,6 @@ $(".add-column").click(function () {
 
 $(document).on("click", ".delete", function () {
     $(this).parents("div.column").remove();
-    //$(".br").remove();
     $(".add-new").removeAttr("disabled");
 });
 
@@ -121,7 +119,9 @@ $(document).on("change", ".type", function () {
 
 $("#schema-form").on("submit", function (event) {
     event.preventDefault();
-    checkValidation()
+    if (!checkValidation()){
+        return showErrorMessage("Fill required fields to submit")
+    }
     data = collectData();
 
     var myHeaders = new Headers()
@@ -160,20 +160,32 @@ $("#schema-form").on("submit", function (event) {
 
 
 function checkValidation() {
+    valid = true
     if (!$("#title").val()) {
-        return false
+        valid = false
+        setError($("#title"))
     }
     names = document.getElementsByName("c_name")
     types = document.getElementsByName("type")
-    orders = document.getElementsByName("order")
     froms = document.getElementsByName("from")
     tos = document.getElementsByName("to")
     for (let i = 0; i < names.length; i++) {
-        if ((!names[i].value || !orders[i].value) || (types[i].value == "Integer" && (!froms[i].value || !tos[i].value))) {
-            return false
+        if(!names[i].value){
+            valid = false
+            setError($(names[i]))
+        }
+        if(types[i].value == "Integer"){
+            if(!froms[i].value){
+                valid = false
+                setError($(froms[i]))
+            }
+            if(!tos[i].value){
+                valid = false
+                setError($(tos[i]))
+            }
         }
     }
-    return true
+    return valid
 }
 
 
@@ -193,11 +205,15 @@ function collectData() {
         if (!tos[i].value) {
             int_to = null
         }
+        order = orders[i].value
+        if(!orders[i].value){
+            order = null
+        }
         column_array.push(
             {
                 name: c_names[i].value,
                 type: types[i].value,
-                order: orders[i].value,
+                order: order,
                 int_from: int_from,
                 int_to: int_to,
             }

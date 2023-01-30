@@ -1,4 +1,9 @@
 from django.shortcuts import render
+from django.contrib.auth.views import LoginView
+
+
+class MyLoginView(LoginView):
+    redirect_authenticated_user = True
 
 
 def schema_list(request):

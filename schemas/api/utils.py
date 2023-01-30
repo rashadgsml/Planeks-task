@@ -28,4 +28,4 @@ def format_date(date_):
     if not date_:
         return "-"
 
-    return datetime.strftime(date_, "%Y-%m-%d")
+    return datetime.strftime(date_, "%d/%m/%Y %H:%M:%S")

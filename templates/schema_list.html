@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="{% static 'css/schema_list.css' %}">
 {% endblock css %}
 {% block content %}
+{% csrf_token %}
 <div class="container-lg">
     <div class="table-responsive">
         <div class="table-wrapper">
@@ -41,6 +42,8 @@
 <script>
     const schema_list_url = "{% url 'schemas-api:list' %}"
     const schema_detail_url = "{% url 'schemas:detail' 0 %}"
+    const schema_detail_api_url = "{% url 'schemas-api:detail' 0 %}"
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
 </script>
 <script src="{% static 'js/DataSchemas.js' %}"></script>
 {% endblock js %}
