@@ -24,7 +24,7 @@ class SchemaList(ListAPIView):
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self, *args, **kwargs):
-        return Schema.objects.filter(user=self.request.user)
+        return self.queryset.filter(user=self.request.user)
 
 
 class SchemaDetailAPI(RetrieveUpdateDestroyAPIView):
@@ -38,10 +38,6 @@ class SchemaDetailAPI(RetrieveUpdateDestroyAPIView):
         with contextlib.suppress(Exception):
             context.update({"columns": self.column_id_list})
         return context
-
-    def get_object(self):
-        obj = super().get_object()
-        return obj
 
     def put(self, request, *args, **kwargs):
         serializer = SchemaColumnSerializer(
@@ -82,7 +78,7 @@ class SchemaCreateAPI(CreateAPIView):
 class SchemaColumnCreateAPI(CreateAPIView):
     serializer_class = SchemaColumnSerializer
     queryset = SchemaColumn.objects.all()
-    permission_classes = (IsAuthenticated, IsAuthor)
+    permission_classes = (IsAuthenticated,)
 
 
 class GenerateCsvAPI(RetrieveAPIView):
