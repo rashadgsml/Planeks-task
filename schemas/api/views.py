@@ -9,12 +9,13 @@ from rest_framework.response import Response
 from .serializers import SchemaSerializer, SchemaColumnSerializer, DatasetSerializer
 from ..models import Schema, SchemaColumn, Dataset
 from .utils import fill_list
-from .permissions import IsAuthor
+from rest_framework.permissions import IsAuthenticated
 
 
 class SchemaList(ListAPIView):
     serializer_class = SchemaSerializer
     queryset = Schema.objects.all()
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self, *args, **kwargs):
         return Schema.objects.filter(user=self.request.user)
@@ -24,6 +25,7 @@ class SchemaDetailAPI(RetrieveUpdateDestroyAPIView):
     serializer_class = SchemaSerializer
     queryset = Schema.objects.all()
     lookup_field = "id"
+    permission_classes = (IsAuthenticated,)
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
@@ -51,6 +53,7 @@ class SchemaDetailAPI(RetrieveUpdateDestroyAPIView):
 class SchemaCreateAPI(CreateAPIView):
     serializer_class = SchemaSerializer
     queryset = Schema.objects.all()
+    permission_classes = (IsAuthenticated,)
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
@@ -71,11 +74,13 @@ class SchemaCreateAPI(CreateAPIView):
 class SchemaColumnCreateAPI(CreateAPIView):
     serializer_class = SchemaColumnSerializer
     queryset = SchemaColumn.objects.all()
+    permission_classes = (IsAuthenticated,)
 
 
 class GenerateCsvAPI(RetrieveAPIView):
     queryset = Schema.objects.all()
     lookup_field = "id"
+    permission_classes = (IsAuthenticated,)
 
     def get(self, request, *args, **kwargs):
         fake = Faker()
@@ -101,6 +106,7 @@ class GenerateCsvAPI(RetrieveAPIView):
 class DatasetListAPI(RetrieveAPIView):
     queryset = Schema.objects.all()
     lookup_field = "id"
+    permission_classes = (IsAuthenticated,)
 
     def get(self, request, *args, **kwargs):
         datasets = Dataset.objects.filter(schema=self.get_object()).order_by("-id")
