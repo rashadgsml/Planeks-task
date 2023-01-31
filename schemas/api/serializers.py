@@ -19,7 +19,6 @@ class SchemaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schema
         fields = "__all__"
-        extra_kwargs = {"columns": {"required": False}}
 
     def create(self, validated_data):
         instance = super().create(validated_data)
