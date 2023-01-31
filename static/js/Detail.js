@@ -23,7 +23,7 @@ function uploadSchema() {
                 <tr>
                     <td><b>${counter + 1}<b></td>
                     <td>${data.name}</td>
-                    <td>${data.type}</td>
+                    <td>${data.column_type}</td>
                 </tr>`;
             });
             schema_tbody.insertAdjacentHTML("beforeend", trs);
@@ -73,10 +73,7 @@ function generateCSV() {
     const currentdate = new Date();
     var datetime = currentdate.getDate() + "/"
                 + (currentdate.getMonth()+1)  + "/" 
-                + currentdate.getFullYear() + " "  
-                + currentdate.getHours() + ":"  
-                + currentdate.getMinutes() + ":" 
-                + currentdate.getSeconds();
+                + currentdate.getFullYear();
     dataset_tbody = document.getElementById("dataset-tbody");
     trs = `
         <tr>

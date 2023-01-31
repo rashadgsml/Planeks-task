@@ -19,20 +19,18 @@ class SchemaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schema
         fields = "__all__"
-        extra_kwargs = {
-            "columns": {"required": False}
-        }
+        extra_kwargs = {"columns": {"required": False}}
 
     def create(self, validated_data):
         instance = super().create(validated_data)
-        instance.columns.set(self.context['columns'])
-        instance.user = self.context['request'].user
+        instance.columns.set(self.context["columns"])
+        instance.user = self.context["request"].user
         instance.save()
         return instance
 
     def update(self, instance, validated_data):
         instance = super().update(instance, validated_data)
-        instance.columns.set(self.context['columns'])
+        instance.columns.set(self.context["columns"])
         return instance
 
 
@@ -43,7 +41,6 @@ class DatasetSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         repr_ = super().to_representation(instance)
-        repr_['created_at'] = format_date(instance.created_at)
+        repr_["created_at"] = format_date(instance.created_at)
 
         return repr_
-

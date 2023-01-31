@@ -17,14 +17,13 @@ COLUMN_TYPES = (
 
 class Schema(models.Model):
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE, blank=True, null=True
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True
     )
     title = models.CharField(max_length=100)
     column_sep = models.CharField(max_length=1)
     string_char = models.CharField(max_length=1)
 
-    columns = models.ManyToManyField("SchemaColumn", blank=True, related_name='columns')
+    columns = models.ManyToManyField("SchemaColumn", blank=True, related_name="columns")
 
     modified_at = models.DateField(auto_now=True, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -40,10 +39,10 @@ class Schema(models.Model):
 
 class SchemaColumn(models.Model):
     name = models.CharField(max_length=100)
-    type = models.CharField(choices=COLUMN_TYPES, max_length=100)
+    column_type = models.CharField(choices=COLUMN_TYPES, max_length=100)
     order = models.IntegerField(blank=True, null=True)
 
-    # if type is integer
+    # if clumn_type is integer
     int_from = models.IntegerField(blank=True, null=True)
     int_to = models.IntegerField(blank=True, null=True)
 
@@ -53,9 +52,7 @@ class SchemaColumn(models.Model):
     class Meta:
         verbose_name = "Schema Column"
         verbose_name_plural = "Schema Columns"
-        ordering = ('-order',)
-
-
+        ordering = ("-order",)
 
 
 class Dataset(models.Model):

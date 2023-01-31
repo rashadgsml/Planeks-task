@@ -1,7 +1,9 @@
 from datetime import datetime
+from faker import Faker
 
 
-def fill_list(columns, rows, fake):
+def fill_list(columns, rows):
+    fake = Faker()
     row_list = []
     for _ in range(rows):
         value_list = []
@@ -19,7 +21,7 @@ def fill_list(columns, rows, fake):
                 "Address": fake.address(),
                 "Date": fake.date(),
             }
-            value_list.append(type_dict[column.type])
+            value_list.append(type_dict[column.column_type])
         row_list.append(value_list)
     return row_list
 

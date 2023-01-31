@@ -29,8 +29,6 @@
                 <label>Column separator</label>
                 <select class="form-control form-control-lg" id="column_sep">
                     <option value=",">Comma (,)</option>
-                    <option value=".">Point (.)</option>
-                    <option value="|">Bar (|)</option>
                 </select>
             </div>
         </div>
@@ -40,7 +38,6 @@
                 <label>String character</label>
                 <select class="form-control form-control-lg" id="string_char">
                     <option value='"'>Double-quote (")</option>
-                    <option value="'">Single-quote (')</option>
                 </select>
             </div>
         </div>
@@ -120,5 +117,5 @@
     const schema_detail_api_url = "{% url 'schemas-api:detail' 0 %}"
     const obj_id = "{{obj_id}}"
 </script>
-<script src="{% static 'js/CreateSchema.js' %}"></script>
+<script src="{% static 'js/CreateUpdate.js' %}"></script>
 {% endblock js %}

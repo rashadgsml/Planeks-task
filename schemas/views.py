@@ -19,7 +19,7 @@ def schema_list(request):
 
 @login_required
 def create_schema(request):
-    return render(request, "create_schema.html")
+    return render(request, "create_update.html")
 
 
 @login_required
@@ -29,4 +29,4 @@ def schema_detail(request, id):
 
 @login_required
 def edit_schema(request, id):
-    return render(request, "create_schema.html", {"obj_id": id})
+    return render(request, "create_update.html", {"obj_id": id})

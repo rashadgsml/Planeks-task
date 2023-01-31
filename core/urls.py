@@ -6,16 +6,13 @@ from schemas.views import MyLoginView, index
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-
+    path("admin/", admin.site.urls),
     # auth
     path("accounts/login/", MyLoginView.as_view()),
     path("accounts/", include("django.contrib.auth.urls")),
-
     # apps
     path("", index),
     path("schemas/", include("schemas.urls")),
-
     # api
     path("api/schemas/", include("schemas.api.urls")),
 ]

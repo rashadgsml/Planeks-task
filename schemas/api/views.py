@@ -1,9 +1,14 @@
 import json
-from faker import Faker
+import contextlib
 import pandas as pd
 from django.core.files.base import ContentFile
 
-from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView, RetrieveAPIView
+from rest_framework.generics import (
+    ListAPIView,
+    CreateAPIView,
+    RetrieveUpdateDestroyAPIView,
+    RetrieveAPIView,
+)
 from rest_framework.response import Response
 
 from .serializers import SchemaSerializer, SchemaColumnSerializer, DatasetSerializer
@@ -29,18 +34,18 @@ class SchemaDetailAPI(RetrieveUpdateDestroyAPIView):
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
-        try:
+        with contextlib.suppress(Exception):
             context.update({"columns": self.column_id_list})
-        except:
-            pass
         return context
-    
+
     def get_object(self):
         obj = super().get_object()
         return obj
 
     def put(self, request, *args, **kwargs):
-        serializer = SchemaColumnSerializer(data=json.loads(request.data["columns"]), many=True)
+        serializer = SchemaColumnSerializer(
+            data=json.loads(request.data["columns"]), many=True
+        )
         serializer.is_valid(raise_exception=True)
         columns = serializer.save()
         column_id_list = []
@@ -61,7 +66,9 @@ class SchemaCreateAPI(CreateAPIView):
         return context
 
     def post(self, request, *args, **kwargs):
-        serializer = SchemaColumnSerializer(data=json.loads(request.data["columns"]), many=True)
+        serializer = SchemaColumnSerializer(
+            data=json.loads(request.data["columns"]), many=True
+        )
         serializer.is_valid(raise_exception=True)
         columns = serializer.save()
         column_id_list = []
@@ -83,23 +90,27 @@ class GenerateCsvAPI(RetrieveAPIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, *args, **kwargs):
-        fake = Faker()
         schema = self.get_object()
         rows = request.GET.get("rows")
 
         columns = schema.columns.all().order_by("-order")
         column_name_list = columns.values_list("name", flat=True)
 
-        row_list = fill_list(columns, int(rows), fake)
+        row_list = fill_list(columns, int(rows))
 
         dataset = pd.DataFrame(row_list, columns=column_name_list)
-        temp_file = ContentFile(dataset.to_csv(index=None, header=True, 
-                                            sep=schema.column_sep, lineterminator='\n',
-                                            quotechar=schema.string_char, quoting=1))
-        obj = Dataset.objects.create(
-            schema=schema
+        temp_file = ContentFile(
+            dataset.to_csv(
+                index=None,
+                header=True,
+                sep=schema.column_sep,
+                lineterminator="\n",
+                quotechar=schema.string_char,
+                quoting=1,
+            )
         )
-        obj.file.save('output.csv', temp_file)
+        obj = Dataset.objects.create(schema=schema)
+        obj.file.save("output.csv", temp_file)
         return Response()
 
 

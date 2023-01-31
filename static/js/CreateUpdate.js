@@ -22,8 +22,8 @@ function fillForm() {
             data.columns.forEach((data, counter) => {
                 $(".add-column").click()
                 document.getElementsByName("c_name")[counter].value = data.name
-                document.getElementsByName("type")[counter].value = data.type
-                if (data.type == "Integer") {
+                document.getElementsByName("type")[counter].value = data.column_type
+                if (data.column_type == "Integer") {
                     from = document.getElementsByName("from")
                     to = document.getElementsByName("to")
                     from[counter].value = data.int_from
