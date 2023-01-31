@@ -90,7 +90,7 @@ class GenerateCsvAPI(RetrieveAPIView):
         schema = self.get_object()
         rows = request.GET.get("rows")
 
-        columns = schema.columns.all().order_by("-order")
+        columns = schema.columns.all().order_by("order")
         column_name_list = columns.values_list("name", flat=True)
 
         row_list = fill_list(columns, int(rows))
@@ -117,6 +117,6 @@ class DatasetListAPI(RetrieveAPIView):
     permission_classes = (IsAuthenticated, IsAuthor)
 
     def get(self, request, *args, **kwargs):
-        datasets = Dataset.objects.filter(schema=self.get_object()).order_by("-id")
+        datasets = Dataset.objects.filter(schema=self.get_object()).order_by("order")
         serializer = DatasetSerializer(datasets, many=True)
         return Response(serializer.data)
