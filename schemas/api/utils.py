@@ -27,7 +27,4 @@ def fill_list(columns, rows):
 
 
 def format_date(date_):
-    if not date_:
-        return "-"
-
-    return datetime.strftime(date_, "%d/%m/%Y %H:%M:%S")
+    return "-" if not date_ else datetime.strftime(date_, "%d/%m/%Y %H:%M:%S")
