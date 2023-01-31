@@ -117,6 +117,6 @@ class DatasetListAPI(RetrieveAPIView):
     permission_classes = (IsAuthenticated, IsAuthor)
 
     def get(self, request, *args, **kwargs):
-        datasets = Dataset.objects.filter(schema=self.get_object()).order_by("order")
+        datasets = Dataset.objects.filter(schema=self.get_object()).order_by("-id")
         serializer = DatasetSerializer(datasets, many=True)
         return Response(serializer.data)

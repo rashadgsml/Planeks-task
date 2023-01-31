@@ -52,7 +52,7 @@ class SchemaColumn(models.Model):
     class Meta:
         verbose_name = "Schema Column"
         verbose_name_plural = "Schema Columns"
-        ordering = ("-order",)
+        ordering = ("order",)
 
 
 class Dataset(models.Model):
