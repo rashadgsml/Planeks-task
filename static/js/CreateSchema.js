@@ -119,8 +119,9 @@ $(document).on("change", ".type", function () {
 
 $("#schema-form").on("submit", function (event) {
     event.preventDefault();
-    if (!checkValidation()){
-        return showErrorMessage("Fill required fields to submit")
+    check_validation = checkValidation()
+    if (!check_validation.valid){
+        return showErrorMessage(check_validation.message)
     }
     data = collectData();
 
@@ -161,6 +162,7 @@ $("#schema-form").on("submit", function (event) {
 
 function checkValidation() {
     valid = true
+    message = "Fill all required fields to submit"
     if (!$("#title").val()) {
         valid = false
         setError($("#title"))
@@ -183,9 +185,15 @@ function checkValidation() {
                 valid = false
                 setError($(tos[i]))
             }
+            if((froms[i].value && tos[i].value) && (parseInt(froms[i].value)>parseInt(tos[i].value))){
+                setError($(froms[i]))
+                setError($(tos[i]))
+                message = "'From' value must be smaller than 'To' value"
+                valid = false
+            }
         }
     }
-    return valid
+    return {valid:valid, message:message}
 }
 
 

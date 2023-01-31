@@ -90,7 +90,7 @@ class GenerateCsvAPI(RetrieveAPIView):
         dataset = pd.DataFrame(row_list, columns=column_name_list)
         temp_file = ContentFile(dataset.to_csv(index=None, header=True, 
                                             sep=schema.column_sep, lineterminator='\n',
-                                            quotechar='"', quoting=1))
+                                            quotechar=schema.string_char, quoting=1))
         obj = Dataset.objects.create(
             schema=schema
         )

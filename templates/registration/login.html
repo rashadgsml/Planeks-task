@@ -1,7 +1,30 @@
+{% extends 'base.html' %}
 {% load static %}
-<h2>Log In</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Log In</button>
-</form>
+
+{% block css %}
+<style>
+  body {
+    overflow: hidden;
+  }
+</style>
+{% endblock css %}
+{% block navbar %}
+{% endblock navbar %}
+
+
+{% block content %}
+  <div class="login-card">
+    <form method="post" class="login-form">
+      <h2>Log In</h2>
+      {% csrf_token %}
+      <p>
+        <input class="form-control" type="text" name="username" placeholder="Username" autocomplete="username" maxlength="150"
+          required="" id="id_username">
+      </p>
+      <p>
+        <input class="form-control" placeholder="Password" type="password" name="password" autocomplete="current-password" required="" id="id_password">
+      </p>
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+  </div>
+{% endblock content %}

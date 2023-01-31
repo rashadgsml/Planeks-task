@@ -12,9 +12,11 @@
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-8">
-                        <h2><b>Sample schema</b></h2>
-                        <h3><a href="{% url 'schemas:edit' obj_id %}">Edit schema</a></h3>
+                    <div class="col-sm-4">
+                        <h3><b>Sample schema</b></h3>
+                    </div>
+                    <div class="col-sm-4">
+                        <h4 style="position: relative;top:16px"><a href="{% url 'schemas:edit' obj_id %}">Edit schema</a></h4>
                     </div>
                 </div>
             </div>
@@ -39,8 +41,8 @@
                         <h2><b>Data sets</b></h2>
                     </div>
                     <div class="col-sm-3">
-                        <h5 style="margin-left: 35px;">Rows:</h5>
-                        <input style="width: 84px;left:80px;bottom:35px;" class="form-control col-md-6" type="number" id="rows">
+                        <h5 style="margin-left: 70px;">Rows:</h5>
+                        <input style="width: 84px;left:115px;bottom:35px;z-index:100;" class="form-control col-md-6" type="number" id="rows">
                     </div>
                     <div class="col-sm-3">
                         <a onclick="generateCSV()" class="btn btn-success add-new">Generate data</a>
