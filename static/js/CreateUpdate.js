@@ -220,7 +220,7 @@ function collectData() {
         column_array.push(
             {
                 name: c_names[i].value,
-                type: types[i].value,
+                column_type: types[i].value,
                 order: order,
                 int_from: int_from,
                 int_to: int_to,
