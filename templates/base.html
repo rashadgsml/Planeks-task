@@ -29,13 +29,13 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #F7F7F9;">
         <div class="container-fluid">
             <div class="navbar-header" style="margin-left: 70px;">
-                <a class="navbar-brand">FakeCSV</a>
+                <a style="cursor: pointer;" class="navbar-brand"><b>FakeCSV</b></a>
             </div>
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="{% url 'schemas:list' %}">Schemas</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" style="margin-right: 70px;">
-                <li><a>Hello, <b>{{request.user.username}}</b></a></li>
+                <li><a style="cursor: pointer;">Hello, <b>{{request.user.username}}</b></a></li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>
             </ul>
         </div>
