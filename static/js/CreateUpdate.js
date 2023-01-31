@@ -28,8 +28,8 @@ function fillForm() {
                     to = document.getElementsByName("to")
                     from[counter].value = data.int_from
                     to[counter].value = data.int_to
-                    $(from[0]).parents(".form-group")[0].querySelector('.integer').style.display = "block"
-                    $(to[0]).parents(".form-group")[0].querySelector('.integer').style.display = "block"
+                    $(from[counter]).parents(".form-group")[0].querySelector('.integer').style.display = "block"
+                    $(to[counter]).parents(".form-group")[0].querySelector('.integer').style.display = "block"
                 }
                 document.getElementsByName("order")[counter].value = data.order
 
